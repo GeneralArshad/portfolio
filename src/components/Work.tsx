@@ -1,91 +1,130 @@
+// ── Shared bracket decoration ───────────────────────────────────────
+function Brackets({ color = 'var(--accent)', size = 14, opacity = 0.7 }: { color?: string; size?: number; opacity?: number }) {
+  const s: React.CSSProperties = { position: 'absolute', width: size, height: size, opacity }
+  const b = `1px solid ${color}`
+  return (
+    <>
+      <span style={{ ...s, top: 0, left: 0, borderTop: b, borderLeft: b }} />
+      <span style={{ ...s, top: 0, right: 0, borderTop: b, borderRight: b }} />
+      <span style={{ ...s, bottom: 0, left: 0, borderBottom: b, borderLeft: b }} />
+      <span style={{ ...s, bottom: 0, right: 0, borderBottom: b, borderRight: b }} />
+    </>
+  )
+}
+
+// ── Data ────────────────────────────────────────────────────────────
 const FEATURED = [
   {
-    tag: 'UX/UI Design · 2023',
+    index: '001',
+    tag: 'UX/UI DESIGN',
+    year: '2023',
     title: 'Tracktable',
     desc: 'End-to-end design of a Salesforce Chrome extension for Revenue teams. Custom interactions, brand visuals, and motion design — shipped to production.',
     pills: ['Product Design', 'Chrome Extension', 'Salesforce', 'Motion Design'],
     link: 'https://arshads.webflow.io/tracktable',
-    linkLabel: 'View case study ↗',
+    linkLabel: 'View case study',
     side: 'right' as const,
-    color: 'linear-gradient(135deg,#0f1b2d,#1a2f4a)',
-    accentColor: 'rgba(212,245,118,0.35)',
+    accentColor: 'var(--accent)',
   },
   {
-    tag: 'Product Management · 2024–Present',
+    index: '002',
+    tag: 'PRODUCT MANAGEMENT',
+    year: '2024–NOW',
     title: 'HRMS — British Biologicals',
     desc: 'Led product strategy and launch of an in-house HR Management System. Defined requirements, coordinated engineering, and shipped a platform now used across the organisation.',
     pills: ['Product Management', 'Enterprise SaaS', 'Internal Tooling', 'Stakeholder Mgmt'],
     link: null,
     linkLabel: 'Case study coming soon',
     side: 'left' as const,
-    color: 'linear-gradient(135deg,#1a0f2d,#2f1a4a)',
-    accentColor: 'rgba(180,130,255,0.35)',
+    accentColor: 'rgba(180,130,255,0.9)',
   },
 ]
 
 const GRID = [
-  { tag: 'UX/UI Design · 2023',  title: 'Karat Capital',   desc: 'Smart investment guidance platform for investors from all backgrounds.' },
-  { tag: 'Branding · 2022',       title: 'Prop Maestro',    desc: 'Full brand identity design for a Bengaluru-based real estate firm.' },
-  { tag: 'UI/UX + Web · 2022',    title: 'Tasveernama',     desc: 'Website design for tasveernama.in — art direction and UI/UX.' },
-  { tag: 'Brand + Web · 2022',    title: 'Amory Beauty',    desc: 'Branding and website design for a D2C beauty brand.' },
-  { tag: 'Experience · 2022',     title: 'Mahindra Baja',   desc: 'Racing-themed experience design for Mahindra Baja SAEINDIA.' },
+  { index: '003', tag: 'UX/UI DESIGN', year: '2023', title: 'Karat Capital',   desc: 'Smart investment guidance platform for investors from all backgrounds.' },
+  { index: '004', tag: 'BRANDING',     year: '2022', title: 'Prop Maestro',    desc: 'Full brand identity design for a Bengaluru-based real estate firm.' },
+  { index: '005', tag: 'UI/UX + WEB',  year: '2022', title: 'Tasveernama',     desc: 'Website design for tasveernama.in — art direction and UI/UX.' },
+  { index: '006', tag: 'BRAND + WEB',  year: '2022', title: 'Amory Beauty',    desc: 'Branding and website design for a D2C beauty brand.' },
+  { index: '007', tag: 'EXPERIENCE',   year: '2022', title: 'Mahindra Baja',   desc: 'Racing-themed experience design for Mahindra Baja SAEINDIA.' },
 ]
 
+// ── Section ─────────────────────────────────────────────────────────
 export default function Work() {
   return (
-    <section id="work" style={{ padding: '120px 0', background: 'var(--bg)' }}>
+    <section
+      id="work"
+      style={{
+        padding: '140px 0 100px',
+        background: 'var(--bg)',
+        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)',
+        backgroundSize: '28px 28px',
+        position: 'relative',
+      }}
+    >
       <div className="container">
-        <div className="section-label reveal">
-          <span>01</span> Selected Work
-        </div>
 
-        <div className="reveal" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'end', marginBottom: 80 }}>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px,4vw,56px)', fontWeight: 800, lineHeight: 1.05, letterSpacing: '-2px' }}>
-            Things I've built &amp; shipped.
-          </h2>
-          <p style={{ color: 'var(--muted)', fontSize: 15, lineHeight: 1.8 }}>
-            From SaaS platforms and enterprise tools to branding and revenue products — work across design and product management.
+        {/* ── Section header ── */}
+        <div className="reveal" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 80, borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: 24 }}>
+          <div>
+            <div style={{ fontFamily: 'monospace', fontSize: 10, letterSpacing: '0.2em', color: 'var(--accent)', marginBottom: 12 }}>
+              [ 01 ] ── SELECTED WORK
+            </div>
+            <h2 style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(36px,5vw,64px)',
+              fontWeight: 900,
+              lineHeight: 1.0,
+              letterSpacing: '-1px',
+              textTransform: 'uppercase',
+            }}>
+              Built.<br />Shipped.
+            </h2>
+          </div>
+          <p style={{ color: 'var(--muted)', fontSize: 13, lineHeight: 1.8, maxWidth: 320, textAlign: 'right' }}>
+            From SaaS platforms and enterprise tools to branding and revenue products — across design and PM.
           </p>
         </div>
 
-        {/* Featured cards */}
+        {/* ── Featured cards ── */}
         {FEATURED.map((p) => (
           <FeaturedCard key={p.title} project={p} />
         ))}
 
-        {/* Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16 }}>
+        {/* ── Small grid ── */}
+        <div style={{ marginTop: 8, display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 2 }}>
           {GRID.map((p) => (
             <GridCard key={p.title} project={p} />
           ))}
+          {/* Placeholder slot */}
           <div className="reveal" style={{
-            background: 'transparent', border: '1px dashed rgba(255,255,255,0.1)',
-            borderRadius: 'var(--r)', display: 'flex', alignItems: 'center',
-            justifyContent: 'center', textAlign: 'center', padding: 40, minHeight: 180,
+            border: '1px dashed rgba(255,255,255,0.08)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            textAlign: 'center', padding: 40, minHeight: 180,
           }}>
-            <div>
-              <div style={{ fontSize: 28, marginBottom: 10 }}>✦</div>
-              <p style={{ fontSize: 13, color: 'var(--muted)' }}>More work in progress.<br />Check back soon.</p>
-            </div>
+            <p style={{ fontSize: 11, color: 'var(--muted)', fontFamily: 'monospace', letterSpacing: '0.1em' }}>
+              MORE_WORK.LOADING<br />
+              <span style={{ color: 'var(--accent)' }}>█</span>
+            </p>
           </div>
         </div>
-      </div>
 
-      {/* Client bar */}
-      <div className="container">
-        <div className="reveal" style={{ padding: '60px 0', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', marginTop: 80 }}>
-          <p style={{ fontSize: 11, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 28 }}>
-            Featured clients &amp; collaborations
-          </p>
+        {/* ── Client bar ── */}
+        <div className="reveal" style={{ marginTop: 100, paddingTop: 40, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+          <div style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.2em', color: 'var(--muted)', marginBottom: 28 }}>
+            FEATURED CLIENTS &amp; COLLABORATIONS ──────────────────────────────
+          </div>
           <div style={{ display: 'flex', gap: 48, alignItems: 'center', flexWrap: 'wrap' }}>
             {['Mahindra', 'Clientell', 'Jordindian', 'Abhyansh', 'Prop Maestro', 'British Biologicals'].map((name) => (
-              <span key={name} style={{
-                fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 800,
-                color: 'rgba(255,255,255,0.2)', letterSpacing: '-0.5px',
-                transition: 'color 0.3s', cursor: 'default',
-              }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'var(--text)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.2)')}
+              <span
+                key={name}
+                style={{
+                  fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 900,
+                  color: 'rgba(255,255,255,0.15)', letterSpacing: '-0.5px',
+                  textTransform: 'uppercase',
+                  transition: 'color 0.3s', cursor: 'default',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.15)')}
               >{name}</span>
             ))}
           </div>
@@ -95,109 +134,173 @@ export default function Work() {
   )
 }
 
+// ── Featured card ────────────────────────────────────────────────────
 function FeaturedCard({ project: p }: { project: typeof FEATURED[0] }) {
   return (
-    <div className="reveal" style={{
-      background: 'var(--bg2)',
-      border: '1px solid var(--border)',
-      borderRadius: 20,
-      overflow: 'hidden',
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
-      marginBottom: 24,
-      transition: 'border-color 0.3s',
-    }}
-      onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(212,245,118,0.2)')}
+    <div
+      className="reveal"
+      style={{
+        position: 'relative',
+        border: '1px solid rgba(255,255,255,0.08)',
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        marginBottom: 2,
+        overflow: 'hidden',
+        transition: 'border-color 0.3s',
+      }}
+      onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(212,245,118,0.25)')}
       onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}
     >
+      <Brackets size={16} />
+
       {/* Info */}
-      <div style={{ padding: '52px 48px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', order: p.side === 'right' ? 0 : 1 }}>
+      <div style={{
+        padding: '52px 48px',
+        display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+        order: p.side === 'right' ? 0 : 1,
+        borderRight: p.side === 'right' ? '1px solid rgba(255,255,255,0.06)' : 'none',
+        borderLeft:  p.side === 'left'  ? '1px solid rgba(255,255,255,0.06)' : 'none',
+      }}>
         <div>
-          <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 20 }}>{p.tag}</div>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px,3vw,42px)', fontWeight: 800, letterSpacing: '-1.5px', marginBottom: 16 }}>{p.title}</h2>
-          <p style={{ color: 'var(--muted)', fontSize: 14, lineHeight: 1.7, marginBottom: 32 }}>{p.desc}</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 40 }}>
-            {p.pills.map(pill => <span key={pill} className="pill">{pill}</span>)}
+          {/* Technical meta row */}
+          <div style={{ display: 'flex', gap: 16, marginBottom: 28, fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.18em', color: 'var(--muted)' }}>
+            <span style={{ color: 'var(--accent)' }}>[ {p.index} ]</span>
+            <span>{p.tag}</span>
+            <span>{p.year}</span>
+          </div>
+
+          <h2 style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(28px,3vw,44px)',
+            fontWeight: 900,
+            letterSpacing: '-1px',
+            lineHeight: 1.0,
+            textTransform: 'uppercase',
+            marginBottom: 20,
+          }}>
+            {p.title}
+          </h2>
+
+          <p style={{ color: 'var(--muted)', fontSize: 13, lineHeight: 1.75, marginBottom: 32 }}>{p.desc}</p>
+
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 44 }}>
+            {p.pills.map(pill => (
+              <span key={pill} style={{
+                fontFamily: 'monospace',
+                fontSize: 10, letterSpacing: '0.1em',
+                padding: '5px 10px',
+                border: '1px solid rgba(255,255,255,0.1)',
+                color: 'var(--muted)',
+                textTransform: 'uppercase',
+              }}>{pill}</span>
+            ))}
           </div>
         </div>
+
         {p.link
-          ? <a href={p.link} target="_blank" rel="noreferrer" style={{ fontSize: 13, fontWeight: 600, color: 'var(--accent)', display: 'inline-flex', alignItems: 'center', gap: 6, width: 'fit-content', borderBottom: '1px solid transparent', transition: 'border-color 0.2s' }}
-              onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--accent)')}
-              onMouseLeave={e => (e.currentTarget.style.borderColor = 'transparent')}
-            >{p.linkLabel}</a>
-          : <span style={{ fontSize: 13, color: 'var(--muted)', fontStyle: 'italic' }}>{p.linkLabel}</span>
+          ? <a
+              href={p.link} target="_blank" rel="noreferrer"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 10,
+                fontSize: 11, fontWeight: 700, letterSpacing: '0.15em',
+                textTransform: 'uppercase', color: 'var(--accent)',
+                fontFamily: 'monospace',
+                transition: 'gap 0.2s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.gap = '16px')}
+              onMouseLeave={e => (e.currentTarget.style.gap = '10px')}
+            >
+              {p.linkLabel} ──&gt;
+            </a>
+          : <span style={{ fontSize: 11, color: 'var(--muted)', fontFamily: 'monospace', letterSpacing: '0.1em' }}>
+              [CASE STUDY COMING SOON]
+            </span>
         }
       </div>
 
-      {/* Visual */}
+      {/* Visual panel */}
       <div style={{
-        background: p.color, display: 'flex', alignItems: 'center',
-        justifyContent: 'center', minHeight: 400, position: 'relative',
+        minHeight: 420,
+        background: 'rgba(255,255,255,0.02)',
+        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
+        backgroundSize: '20px 20px',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        position: 'relative',
         order: p.side === 'right' ? 1 : 0,
       }}>
-        <MockUI accentColor={p.accentColor} />
+        {/* Technical crosshair center mark */}
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', opacity: 0.15 }}>
+          <div style={{ width: 60, height: 1, background: 'var(--accent)', position: 'absolute', top: 0, left: -30 }} />
+          <div style={{ width: 1, height: 60, background: 'var(--accent)', position: 'absolute', top: -30, left: 0 }} />
+        </div>
+        {/* Project index watermark */}
+        <div style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: 'clamp(6rem,14vw,11rem)',
+          fontWeight: 900,
+          color: 'rgba(255,255,255,0.04)',
+          lineHeight: 1,
+          userSelect: 'none',
+          letterSpacing: '-4px',
+        }}>
+          {p.index}
+        </div>
+        {/* Corner label */}
+        <div style={{
+          position: 'absolute', bottom: 16, right: 20,
+          fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.15em', color: 'rgba(255,255,255,0.15)',
+        }}>
+          {p.accentColor === 'var(--accent)' ? 'UX/UI.DESIGN' : 'PRODUCT.MGMT'}
+        </div>
       </div>
     </div>
   )
 }
 
+// ── Grid card ────────────────────────────────────────────────────────
 function GridCard({ project: p }: { project: typeof GRID[0] }) {
   return (
-    <div className="reveal" style={{
-      background: 'var(--bg2)', border: '1px solid var(--border)',
-      borderRadius: 'var(--r)', padding: '36px 32px',
-      transition: 'border-color 0.3s, transform 0.3s', cursor: 'default',
-    }}
-      onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(212,245,118,0.2)'; e.currentTarget.style.transform = 'translateY(-4px)' }}
-      onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.transform = 'none' }}
+    <div
+      className="reveal"
+      style={{
+        position: 'relative',
+        border: '1px solid rgba(255,255,255,0.07)',
+        padding: '36px 32px',
+        transition: 'border-color 0.3s, background 0.3s',
+        cursor: 'default',
+        overflow: 'hidden',
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.borderColor = 'rgba(212,245,118,0.2)'
+        e.currentTarget.style.background = 'rgba(212,245,118,0.02)'
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'
+        e.currentTarget.style.background = 'transparent'
+      }}
     >
-      <p style={{ fontSize: 11, color: 'var(--muted)', marginBottom: 8 }}>{p.tag}</p>
-      <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 10 }}>{p.title}</h3>
-      <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.6 }}>{p.desc}</p>
-      <span style={{
-        display: 'inline-block', marginTop: 20,
-        fontSize: 11, fontWeight: 600,
-        padding: '4px 10px',
-        background: 'rgba(255,255,255,0.05)',
-        border: '1px solid rgba(255,255,255,0.08)',
-        borderRadius: 100, color: 'var(--muted)',
-      }}>Case study coming soon</span>
-    </div>
-  )
-}
-
-// Decorative fake-UI placeholder — replace with real screenshots
-function MockUI({ accentColor }: { accentColor: string }) {
-  const row = (w: string, bg?: string) => (
-    <div style={{ height: 12, borderRadius: 4, background: bg ?? 'rgba(255,255,255,0.08)', width: w, marginBottom: 8 }} />
-  )
-  const card = () => (
-    <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 8, padding: 12, height: 80, flex: 1 }}>
-      <div style={{ height: 8, borderRadius: 3, background: accentColor, width: '50%', marginBottom: 6 }} />
-      <div style={{ height: 8, borderRadius: 3, background: 'rgba(255,255,255,0.08)', marginBottom: 6 }} />
-      <div style={{ height: 8, borderRadius: 3, background: 'rgba(255,255,255,0.08)', width: '70%' }} />
-    </div>
-  )
-
-  return (
-    <div style={{
-      width: '80%', borderRadius: 12,
-      background: 'rgba(255,255,255,0.05)',
-      border: '1px solid rgba(255,255,255,0.1)',
-      padding: 16,
-      transform: 'perspective(800px) rotateY(-8deg) rotateX(4deg)',
-      boxShadow: '24px 24px 60px rgba(0,0,0,0.5)',
-    }}>
-      <div style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
-        {['#ff5f57','#ffbd2e','#28c941'].map(c => (
-          <div key={c} style={{ width: 8, height: 8, borderRadius: '50%', background: c }} />
-        ))}
+      <Brackets size={10} opacity={0.4} />
+      {/* Meta */}
+      <div style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.18em', color: 'var(--accent)', marginBottom: 16 }}>
+        [ {p.index} ] ── {p.tag} / {p.year}
       </div>
-      {row('40%', accentColor)}
-      {row('80%')}
-      {row('60%')}
-      <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
-        {card()}{card()}
+      <h3 style={{
+        fontFamily: 'var(--font-display)',
+        fontSize: 22, fontWeight: 900,
+        letterSpacing: '-0.5px',
+        textTransform: 'uppercase',
+        marginBottom: 10,
+      }}>
+        {p.title}
+      </h3>
+      <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.65 }}>{p.desc}</p>
+      <div style={{
+        marginTop: 24,
+        fontFamily: 'monospace', fontSize: 9,
+        letterSpacing: '0.15em',
+        color: 'rgba(255,255,255,0.2)',
+      }}>
+        STATUS: COMING_SOON
       </div>
     </div>
   )
