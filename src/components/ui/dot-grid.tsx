@@ -7,15 +7,22 @@ interface Dot {
   radius: number
 }
 
-const SPACING = 34
-const BASE_OPACITY = 0.1
-const MAX_OPACITY = 0.85
+interface Props {
+  baseOpacity?: number
+  maxOpacity?: number
+  influence?: number
+}
+
 const BASE_RADIUS = 1.1
 const MAX_RADIUS = 3.2
-const INFLUENCE = 130
+const SPACING = 34
 const LERP = 0.1
 
-export default function DotGrid() {
+export default function DotGrid({
+  baseOpacity = 0.1,
+  maxOpacity = 0.85,
+  influence = 130,
+}: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const mouse = useRef({ x: -9999, y: -9999 })
   const dots = useRef<Dot[]>([])
@@ -33,12 +40,7 @@ export default function DotGrid() {
       const rows = Math.ceil(canvas.height / SPACING) + 1
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-          dots.current.push({
-            x: c * SPACING,
-            y: r * SPACING,
-            opacity: BASE_OPACITY,
-            radius: BASE_RADIUS,
-          })
+          dots.current.push({ x: c * SPACING, y: r * SPACING, opacity: baseOpacity, radius: BASE_RADIUS })
         }
       }
     }
@@ -50,11 +52,9 @@ export default function DotGrid() {
         const dx = d.x - mx
         const dy = d.y - my
         const dist = Math.sqrt(dx * dx + dy * dy)
-        const strength = Math.max(0, 1 - dist / INFLUENCE)
-        const tO = BASE_OPACITY + (MAX_OPACITY - BASE_OPACITY) * strength
-        const tR = BASE_RADIUS + (MAX_RADIUS - BASE_RADIUS) * strength
-        d.opacity += (tO - d.opacity) * LERP
-        d.radius += (tR - d.radius) * LERP
+        const strength = Math.max(0, 1 - dist / influence)
+        d.opacity += (baseOpacity + (maxOpacity - baseOpacity) * strength - d.opacity) * LERP
+        d.radius += (BASE_RADIUS + (MAX_RADIUS - BASE_RADIUS) * strength - d.radius) * LERP
         ctx.beginPath()
         ctx.arc(d.x, d.y, d.radius, 0, Math.PI * 2)
         ctx.fillStyle = `rgba(255,255,255,${d.opacity.toFixed(3)})`
@@ -63,13 +63,19 @@ export default function DotGrid() {
       raf.current = requestAnimationFrame(draw)
     }
 
-    const onResize = () => { build() }
+    const onResize = () => build()
+
+    // Track from window so the canvas doesn't need pointer events
     const onMove = (e: MouseEvent) => {
       const r = canvas.getBoundingClientRect()
-      mouse.current = { x: e.clientX - r.left, y: e.clientY - r.top }
+      const x = e.clientX - r.left
+      const y = e.clientY - r.top
+      mouse.current = (x >= 0 && x <= r.width && y >= 0 && y <= r.height)
+        ? { x, y }
+        : { x: -9999, y: -9999 }
     }
-    const onLeave = () => { mouse.current = { x: -9999, y: -9999 } }
-    const onTouch = (e: TouchEvent) => {
+
+    const onTouchMove = (e: TouchEvent) => {
       const r = canvas.getBoundingClientRect()
       const t = e.touches[0]
       mouse.current = { x: t.clientX - r.left, y: t.clientY - r.top }
@@ -79,20 +85,18 @@ export default function DotGrid() {
     build()
     draw()
     window.addEventListener('resize', onResize)
-    canvas.addEventListener('mousemove', onMove)
-    canvas.addEventListener('mouseleave', onLeave)
-    canvas.addEventListener('touchmove', onTouch, { passive: true })
+    window.addEventListener('mousemove', onMove)
+    canvas.addEventListener('touchmove', onTouchMove, { passive: true })
     canvas.addEventListener('touchend', onTouchEnd)
 
     return () => {
       cancelAnimationFrame(raf.current)
       window.removeEventListener('resize', onResize)
-      canvas.removeEventListener('mousemove', onMove)
-      canvas.removeEventListener('mouseleave', onLeave)
-      canvas.removeEventListener('touchmove', onTouch)
+      window.removeEventListener('mousemove', onMove)
+      canvas.removeEventListener('touchmove', onTouchMove)
       canvas.removeEventListener('touchend', onTouchEnd)
     }
-  }, [])
+  }, [baseOpacity, maxOpacity, influence])
 
   return (
     <canvas
@@ -103,6 +107,7 @@ export default function DotGrid() {
         width: '100%',
         height: '100%',
         display: 'block',
+        pointerEvents: 'none', // doesn't block clicks on content beneath
       }}
     />
   )
