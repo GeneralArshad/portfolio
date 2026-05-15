@@ -11,8 +11,8 @@ export default function About() {
   return (
     <section
       id="about"
+      className="section-padded"
       style={{
-        padding: '140px 0',
         background: 'var(--bg)',
         backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
         backgroundSize: '28px 28px',
@@ -22,15 +22,14 @@ export default function About() {
     >
       <div className="container">
 
-        {/* ── Section header ── */}
-        <div className="reveal" style={{ marginBottom: 80, borderBottom: '1px solid rgba(255,255,255,0.07)', paddingBottom: 24, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+        <div className="reveal section-header">
           <div>
             <div style={{ fontFamily: 'monospace', fontSize: 10, letterSpacing: '0.2em', color: 'var(--accent)', marginBottom: 12 }}>
               [ 02 ] ── ABOUT ME
             </div>
             <h2 style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(40px,5vw,68px)',
+              fontSize: 'clamp(36px,5vw,68px)',
               fontWeight: 900,
               lineHeight: 1.0,
               letterSpacing: '-2px',
@@ -40,8 +39,7 @@ export default function About() {
               <span style={{ color: 'var(--accent)' }}>PM.</span> Both.
             </h2>
           </div>
-          {/* Decorative system readout */}
-          <div style={{ fontFamily: 'monospace', fontSize: 9, color: 'rgba(255,255,255,0.15)', textAlign: 'right', lineHeight: 2, letterSpacing: '0.1em' }}>
+          <div className="section-header-aside" style={{ fontFamily: 'monospace', fontSize: 9, color: 'rgba(255,255,255,0.15)', textAlign: 'right', lineHeight: 2, letterSpacing: '0.1em' }}>
             <div>ENTITY: ARSHAD_SUTAR</div>
             <div>LOCATION: BENGALURU.IN</div>
             <div>MODE: DESIGNER+PM</div>
@@ -49,8 +47,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* ── Body grid ── */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
+        <div className="two-col">
 
           {/* Left — bio */}
           <div className="reveal">
@@ -60,8 +57,7 @@ export default function About() {
               <p style={{ marginTop: 20 }}>I believe the best products are built by people who can think in both modes: structured strategy and intuitive design. That's the space I occupy.</p>
             </div>
 
-            {/* Stat row */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 2, marginTop: 52 }}>
+            <div className="stat-grid">
               {[
                 { value: '6+', label: 'Years designing' },
                 { value: '20+', label: 'Products shipped' },
@@ -76,16 +72,18 @@ export default function About() {
                     overflow: 'hidden',
                   }}
                 >
-                  {/* Corner marks */}
                   <span style={{ position: 'absolute', top: 0, left: 0, width: 8, height: 8, borderTop: '1px solid var(--accent)', borderLeft: '1px solid var(--accent)', opacity: 0.5 }} />
-                  <div style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: 36, fontWeight: 900,
-                    letterSpacing: '-2px',
-                    color: 'var(--text)',
-                    lineHeight: 1,
-                    marginBottom: 6,
-                  }}>
+                  <div
+                    className="stat-value"
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: 36, fontWeight: 900,
+                      letterSpacing: '-2px',
+                      color: 'var(--text)',
+                      lineHeight: 1,
+                      marginBottom: 6,
+                    }}
+                  >
                     {stat.value}
                   </div>
                   <div style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.12em', color: 'var(--muted)', textTransform: 'uppercase' }}>
@@ -110,10 +108,8 @@ export default function About() {
                   gap: 24,
                   padding: '24px 0',
                   borderBottom: i < TIMELINE.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                  position: 'relative',
                 }}
               >
-                {/* Year badge */}
                 <div style={{ paddingTop: 2 }}>
                   <div style={{
                     fontFamily: 'var(--font-display)',

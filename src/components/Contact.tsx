@@ -8,32 +8,31 @@ export default function Contact() {
   return (
     <section
       id="contact"
+      className="section-padded"
       style={{
-        padding: '160px 0 120px',
         background: 'var(--bg)',
         backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
         backgroundSize: '28px 28px',
         borderTop: '1px solid rgba(255,255,255,0.05)',
         position: 'relative',
+        paddingTop: 160,
       }}
     >
       <div className="container">
 
-        {/* ── Header ── */}
         <div className="reveal" style={{ marginBottom: 80, borderBottom: '1px solid rgba(255,255,255,0.07)', paddingBottom: 24 }}>
           <div style={{ fontFamily: 'monospace', fontSize: 10, letterSpacing: '0.2em', color: 'var(--accent)', marginBottom: 16 }}>
             [ 04 ] ── INITIATE CONTACT
           </div>
         </div>
 
-        {/* ── Main layout ── */}
-        <div className="reveal" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
+        <div className="reveal contact-layout">
 
           {/* Left — headline */}
           <div>
             <h2 style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(52px,7vw,96px)',
+              fontSize: 'clamp(44px,7vw,96px)',
               fontWeight: 900,
               lineHeight: 0.92,
               letterSpacing: '-3px',
@@ -49,7 +48,6 @@ export default function Contact() {
               Based in Bengaluru — remote-friendly.
             </p>
 
-            {/* Technical availability block */}
             <div style={{
               marginTop: 48,
               border: '1px solid rgba(255,255,255,0.08)',
@@ -100,7 +98,7 @@ export default function Contact() {
                 <span style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.12em', color: 'var(--accent)' }}>{l.id}</span>
                 <div>
                   <div style={{ fontFamily: 'monospace', fontSize: 8, letterSpacing: '0.15em', color: 'var(--muted)', marginBottom: 4, textTransform: 'uppercase' }}>{l.label}</div>
-                  <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--text)' }}>{l.value}</div>
+                  <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--text)', wordBreak: 'break-all' }}>{l.value}</div>
                 </div>
                 <span style={{ fontFamily: 'monospace', fontSize: 14, color: 'var(--muted)' }}>↗</span>
               </a>
@@ -108,21 +106,9 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* ── Bottom system bar ── */}
-        <div style={{
-          marginTop: 100,
-          paddingTop: 20,
-          borderTop: '1px solid rgba(255,255,255,0.06)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          fontFamily: 'monospace',
-          fontSize: 9,
-          letterSpacing: '0.12em',
-          color: 'rgba(255,255,255,0.15)',
-        }}>
+        <div className="contact-bottom">
           <span>ARSHAD.SUTAR.PROTOCOL // v2.0</span>
-          <span>BENGALURU.IN · 12.97°N 77.59°E</span>
+          <span className="contact-bottom-hide">BENGALURU.IN · 12.97°N 77.59°E</span>
           <span>DESIGN + PRODUCT ●</span>
         </div>
       </div>

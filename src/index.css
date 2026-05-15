@@ -93,3 +93,150 @@ html.lenis { height: auto; }
   width: 100%;
   height: 100%;
 }
+
+/* ─────────────────────────────────────────
+   RESPONSIVE LAYOUT HELPERS
+───────────────────────────────────────── */
+
+/* Container padding tighter on mobile */
+@media (max-width: 767px) {
+  .container { padding: 0 20px; }
+}
+
+/* ── Section padding ── */
+.section-padded { padding: 140px 0; }
+@media (max-width: 767px) {
+  .section-padded { padding: 72px 0; }
+}
+
+/* ── Section headers (flex row → col on mobile) ── */
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 80px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding-bottom: 24px;
+}
+@media (max-width: 767px) {
+  .section-header { flex-direction: column; align-items: flex-start; gap: 0; margin-bottom: 48px; }
+  .section-header-aside { display: none; }
+}
+
+/* ── Two-column body grids → single col on mobile ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+@media (max-width: 767px) {
+  .two-col { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ── Featured work cards ── */
+.featured-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 767px) {
+  .featured-card-grid { grid-template-columns: 1fr; }
+  .featured-card-visual { display: none; }
+}
+
+/* ── Small work grid (3 col → 1 col) ── */
+.small-work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 8px;
+}
+@media (max-width: 1023px) {
+  .small-work-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 767px) {
+  .small-work-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Skills grid (2 col → 1 col) ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+}
+@media (max-width: 767px) {
+  .skills-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Stat row (keep 3 col but tighten padding) ── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 52px;
+}
+@media (max-width: 767px) {
+  .stat-grid { margin-top: 32px; }
+  .stat-grid > div { padding: 16px 12px !important; }
+  .stat-grid .stat-value { font-size: 28px !important; }
+}
+
+/* ── Contact layout ── */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+@media (max-width: 767px) {
+  .contact-layout { grid-template-columns: 1fr; gap: 48px; }
+}
+
+/* ── Contact bottom bar ── */
+.contact-bottom {
+  margin-top: 100px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.15);
+}
+@media (max-width: 767px) {
+  .contact-bottom { flex-direction: column; gap: 6px; text-align: center; margin-top: 56px; }
+  .contact-bottom-hide { display: none; }
+}
+
+/* ── Footer ── */
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media (max-width: 767px) {
+  .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
+  .footer-hide { display: none; }
+}
+
+/* ── Nav: reduce horizontal padding on mobile ── */
+@media (max-width: 767px) {
+  header[style*="fixed"] { padding-left: 20px !important; padding-right: 20px !important; }
+  .nav-overlay { padding-left: 20px !important; padding-right: 20px !important; }
+  .nav-overlay a { font-size: clamp(2.8rem, 14vw, 5rem) !important; }
+  .nav-center-info { display: none !important; }
+}
+
+/* ── Work section: client bar ── */
+.client-bar {
+  margin-top: 100px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+@media (max-width: 767px) {
+  .client-bar { margin-top: 48px; }
+  .client-bar-items { gap: 20px !important; }
+  .client-bar-items span { font-size: 14px !important; }
+}

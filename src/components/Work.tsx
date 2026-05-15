@@ -1,4 +1,5 @@
-// ── Shared bracket decoration ───────────────────────────────────────
+import React from 'react'
+
 function Brackets({ color = 'var(--accent)', size = 14, opacity = 0.7 }: { color?: string; size?: number; opacity?: number }) {
   const s: React.CSSProperties = { position: 'absolute', width: size, height: size, opacity }
   const b = `1px solid ${color}`
@@ -12,7 +13,6 @@ function Brackets({ color = 'var(--accent)', size = 14, opacity = 0.7 }: { color
   )
 }
 
-// ── Data ────────────────────────────────────────────────────────────
 const FEATURED = [
   {
     index: '001',
@@ -48,23 +48,22 @@ const GRID = [
   { index: '007', tag: 'EXPERIENCE',   year: '2022', title: 'Mahindra Baja',   desc: 'Racing-themed experience design for Mahindra Baja SAEINDIA.' },
 ]
 
-// ── Section ─────────────────────────────────────────────────────────
 export default function Work() {
   return (
     <section
       id="work"
+      className="section-padded"
       style={{
-        padding: '140px 0 100px',
         background: 'var(--bg)',
         backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)',
         backgroundSize: '28px 28px',
         position: 'relative',
+        paddingTop: 140,
       }}
     >
       <div className="container">
 
-        {/* ── Section header ── */}
-        <div className="reveal" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 80, borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: 24 }}>
+        <div className="reveal section-header">
           <div>
             <div style={{ fontFamily: 'monospace', fontSize: 10, letterSpacing: '0.2em', color: 'var(--accent)', marginBottom: 12 }}>
               [ 01 ] ── SELECTED WORK
@@ -80,22 +79,19 @@ export default function Work() {
               Built.<br />Shipped.
             </h2>
           </div>
-          <p style={{ color: 'var(--muted)', fontSize: 13, lineHeight: 1.8, maxWidth: 320, textAlign: 'right' }}>
+          <p className="section-header-aside" style={{ color: 'var(--muted)', fontSize: 13, lineHeight: 1.8, maxWidth: 320, textAlign: 'right' }}>
             From SaaS platforms and enterprise tools to branding and revenue products — across design and PM.
           </p>
         </div>
 
-        {/* ── Featured cards ── */}
         {FEATURED.map((p) => (
           <FeaturedCard key={p.title} project={p} />
         ))}
 
-        {/* ── Small grid ── */}
-        <div style={{ marginTop: 8, display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 2 }}>
+        <div className="small-work-grid">
           {GRID.map((p) => (
             <GridCard key={p.title} project={p} />
           ))}
-          {/* Placeholder slot */}
           <div className="reveal" style={{
             border: '1px dashed rgba(255,255,255,0.08)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -108,12 +104,11 @@ export default function Work() {
           </div>
         </div>
 
-        {/* ── Client bar ── */}
-        <div className="reveal" style={{ marginTop: 100, paddingTop: 40, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="reveal client-bar">
           <div style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.2em', color: 'var(--muted)', marginBottom: 28 }}>
             FEATURED CLIENTS &amp; COLLABORATIONS ──────────────────────────────
           </div>
-          <div style={{ display: 'flex', gap: 48, alignItems: 'center', flexWrap: 'wrap' }}>
+          <div className="client-bar-items" style={{ display: 'flex', gap: 48, alignItems: 'center', flexWrap: 'wrap' }}>
             {['Mahindra', 'Clientell', 'Jordindian', 'Abhyansh', 'Prop Maestro', 'British Biologicals'].map((name) => (
               <span
                 key={name}
@@ -134,16 +129,13 @@ export default function Work() {
   )
 }
 
-// ── Featured card ────────────────────────────────────────────────────
 function FeaturedCard({ project: p }: { project: typeof FEATURED[0] }) {
   return (
     <div
-      className="reveal"
+      className="reveal featured-card-grid"
       style={{
         position: 'relative',
         border: '1px solid rgba(255,255,255,0.08)',
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
         marginBottom: 2,
         overflow: 'hidden',
         transition: 'border-color 0.3s',
@@ -153,17 +145,15 @@ function FeaturedCard({ project: p }: { project: typeof FEATURED[0] }) {
     >
       <Brackets size={16} />
 
-      {/* Info */}
       <div style={{
-        padding: '52px 48px',
+        padding: 'clamp(28px,4vw,52px) clamp(20px,4vw,48px)',
         display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
         order: p.side === 'right' ? 0 : 1,
         borderRight: p.side === 'right' ? '1px solid rgba(255,255,255,0.06)' : 'none',
         borderLeft:  p.side === 'left'  ? '1px solid rgba(255,255,255,0.06)' : 'none',
       }}>
         <div>
-          {/* Technical meta row */}
-          <div style={{ display: 'flex', gap: 16, marginBottom: 28, fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.18em', color: 'var(--muted)' }}>
+          <div style={{ display: 'flex', gap: 16, marginBottom: 28, fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.18em', color: 'var(--muted)', flexWrap: 'wrap' }}>
             <span style={{ color: 'var(--accent)' }}>[ {p.index} ]</span>
             <span>{p.tag}</span>
             <span>{p.year}</span>
@@ -171,7 +161,7 @@ function FeaturedCard({ project: p }: { project: typeof FEATURED[0] }) {
 
           <h2 style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(28px,3vw,44px)',
+            fontSize: 'clamp(24px,3vw,44px)',
             fontWeight: 900,
             letterSpacing: '-1px',
             lineHeight: 1.0,
@@ -218,22 +208,22 @@ function FeaturedCard({ project: p }: { project: typeof FEATURED[0] }) {
         }
       </div>
 
-      {/* Visual panel */}
-      <div style={{
-        minHeight: 420,
-        background: 'rgba(255,255,255,0.02)',
-        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
-        backgroundSize: '20px 20px',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        position: 'relative',
-        order: p.side === 'right' ? 1 : 0,
-      }}>
-        {/* Technical crosshair center mark */}
+      <div
+        className="featured-card-visual"
+        style={{
+          minHeight: 380,
+          background: 'rgba(255,255,255,0.02)',
+          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
+          backgroundSize: '20px 20px',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          position: 'relative',
+          order: p.side === 'right' ? 1 : 0,
+        }}
+      >
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', opacity: 0.15 }}>
           <div style={{ width: 60, height: 1, background: 'var(--accent)', position: 'absolute', top: 0, left: -30 }} />
           <div style={{ width: 1, height: 60, background: 'var(--accent)', position: 'absolute', top: -30, left: 0 }} />
         </div>
-        {/* Project index watermark */}
         <div style={{
           fontFamily: 'var(--font-display)',
           fontSize: 'clamp(6rem,14vw,11rem)',
@@ -245,7 +235,6 @@ function FeaturedCard({ project: p }: { project: typeof FEATURED[0] }) {
         }}>
           {p.index}
         </div>
-        {/* Corner label */}
         <div style={{
           position: 'absolute', bottom: 16, right: 20,
           fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.15em', color: 'rgba(255,255,255,0.15)',
@@ -257,7 +246,6 @@ function FeaturedCard({ project: p }: { project: typeof FEATURED[0] }) {
   )
 }
 
-// ── Grid card ────────────────────────────────────────────────────────
 function GridCard({ project: p }: { project: typeof GRID[0] }) {
   return (
     <div
@@ -265,7 +253,7 @@ function GridCard({ project: p }: { project: typeof GRID[0] }) {
       style={{
         position: 'relative',
         border: '1px solid rgba(255,255,255,0.07)',
-        padding: '36px 32px',
+        padding: '36px 28px',
         transition: 'border-color 0.3s, background 0.3s',
         cursor: 'default',
         overflow: 'hidden',
@@ -280,7 +268,6 @@ function GridCard({ project: p }: { project: typeof GRID[0] }) {
       }}
     >
       <Brackets size={10} opacity={0.4} />
-      {/* Meta */}
       <div style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.18em', color: 'var(--accent)', marginBottom: 16 }}>
         [ {p.index} ] ── {p.tag} / {p.year}
       </div>
